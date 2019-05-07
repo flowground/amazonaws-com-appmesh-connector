@@ -1,0 +1,96 @@
+{
+    "type": "object",
+    "properties": {
+        "meshName": {
+            "required": true,
+            "type": "string"
+        },
+        "virtualServiceName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "",
+            "properties": {
+                "clientToken": {
+                    "description": "Unique, case-sensitive identifier that you provide to ensure the idempotency of the\nrequest. Up to 36 letters, numbers, hyphens, and underscores are allowed.",
+                    "type": "string"
+                },
+                "spec": {
+                    "description": "The new virtual service specification to apply. This overwrites the existing\n         data.",
+                    "properties": {
+                        "provider": {
+                            "description": "The App Mesh object that is acting as the provider for a virtual service. You can specify\n         a single virtual node or virtual router.",
+                            "properties": {
+                                "virtualNode": {
+                                    "description": "The virtual node associated with a virtual service.",
+                                    "properties": {
+                                        "virtualNodeName": {
+                                            "description": "The name of the virtual node that is acting as a service provider.",
+                                            "maxLength": 255,
+                                            "minLength": 1,
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "virtualNodeName"
+                                    ],
+                                    "type": "object"
+                                },
+                                "virtualRouter": {
+                                    "description": "The virtual router associated with a virtual service.",
+                                    "properties": {
+                                        "virtualRouterName": {
+                                            "description": "The name of the virtual router that is acting as a service provider.",
+                                            "maxLength": 255,
+                                            "minLength": 1,
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "virtualRouterName"
+                                    ],
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "required": [
+                "spec"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

@@ -1,0 +1,125 @@
+{
+    "type": "object",
+    "properties": {
+        "meshName": {
+            "required": true,
+            "type": "string"
+        },
+        "virtualRouterName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "",
+            "properties": {
+                "clientToken": {
+                    "description": "Unique, case-sensitive identifier that you provide to ensure the idempotency of the\nrequest. Up to 36 letters, numbers, hyphens, and underscores are allowed.",
+                    "type": "string"
+                },
+                "routeName": {
+                    "description": "The name to use for the route.",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "spec": {
+                    "description": "The route specification to apply.",
+                    "properties": {
+                        "httpRoute": {
+                            "description": "The HTTP routing information for the route.",
+                            "properties": {
+                                "action": {
+                                    "description": "The action to take if a match is determined.",
+                                    "properties": {
+                                        "weightedTargets": {
+                                            "description": "The targets that traffic is routed to when a request matches the route. You can specify\n         one or more targets and their relative weights to distribute traffic with.",
+                                            "items": {
+                                                "description": "An object representing a target and its relative weight. Traffic is distributed across\n         targets according to their relative weight. For example, a weighted target with a relative\n         weight of 50 receives five times as much traffic as one with a relative weight of\n         10.",
+                                                "properties": {
+                                                    "virtualNode": {
+                                                        "description": "The virtual node to associate with the weighted target.",
+                                                        "maxLength": 255,
+                                                        "minLength": 1,
+                                                        "type": "string"
+                                                    },
+                                                    "weight": {
+                                                        "description": "The relative weight of the weighted target.",
+                                                        "maximum": 100,
+                                                        "minimum": 0,
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "virtualNode",
+                                                    "weight"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "required": [
+                                        "weightedTargets"
+                                    ],
+                                    "type": "object"
+                                },
+                                "match": {
+                                    "description": "The criteria for determining an HTTP request match.",
+                                    "properties": {
+                                        "prefix": {
+                                            "description": "Specifies the path to match requests with. This parameter must always start with\n            <code>/</code>, which by itself matches all requests to the virtual router service name.\n         You can also match for path-based routing of requests. For example, if your virtual router\n         service name is <code>my-service.local</code> and you want the route to match requests to\n            <code>my-service.local/metrics</code>, your prefix should be\n         <code>/metrics</code>.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "prefix"
+                                    ],
+                                    "type": "object"
+                                }
+                            },
+                            "required": [
+                                "action",
+                                "match"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "required": [
+                "routeName",
+                "spec"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

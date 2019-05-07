@@ -1,0 +1,194 @@
+{
+    "type": "object",
+    "properties": {
+        "meshName": {
+            "required": true,
+            "type": "string"
+        },
+        "virtualNodeName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "",
+            "properties": {
+                "clientToken": {
+                    "description": "Unique, case-sensitive identifier that you provide to ensure the idempotency of the\nrequest. Up to 36 letters, numbers, hyphens, and underscores are allowed.",
+                    "type": "string"
+                },
+                "spec": {
+                    "description": "The new virtual node specification to apply. This overwrites the existing data.",
+                    "properties": {
+                        "backends": {
+                            "description": "The backends that the virtual node is expected to send outbound traffic to.",
+                            "items": {
+                                "description": "An object representing the backends that a virtual node is expected to send outbound\n         traffic to. ",
+                                "properties": {
+                                    "virtualService": {
+                                        "description": "Specifies a virtual service to use as a backend for a virtual node. ",
+                                        "properties": {
+                                            "virtualServiceName": {
+                                                "description": "The name of the virtual service that is acting as a virtual node backend.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "virtualServiceName"
+                                        ],
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "listeners": {
+                            "description": "The listeners that the virtual node is expected to receive inbound traffic from. Currently only one listener is supported per virtual node.",
+                            "items": {
+                                "description": "An object representing a listener for a virtual node.",
+                                "properties": {
+                                    "healthCheck": {
+                                        "description": "The health check information for the listener.",
+                                        "properties": {
+                                            "healthyThreshold": {
+                                                "description": "The number of consecutive successful health checks that must occur before declaring\n         listener healthy.",
+                                                "maximum": 10,
+                                                "minimum": 2,
+                                                "type": "integer"
+                                            },
+                                            "intervalMillis": {
+                                                "description": "The time period in milliseconds between each health check execution.",
+                                                "maximum": 300000,
+                                                "minimum": 5000,
+                                                "type": "integer"
+                                            },
+                                            "path": {
+                                                "description": "The destination path for the health check request. This is required only if the\n         specified protocol is HTTP. If the protocol is TCP, this parameter is ignored.",
+                                                "type": "string"
+                                            },
+                                            "port": {
+                                                "description": "The destination port for the health check request. This port must match the port defined\n         in the <a>PortMapping</a> for the listener.",
+                                                "maximum": 65535,
+                                                "minimum": 1,
+                                                "type": "integer"
+                                            },
+                                            "protocol": {
+                                                "description": "The protocol for the health check request.",
+                                                "enum": [
+                                                    "http",
+                                                    "tcp"
+                                                ],
+                                                "type": "string"
+                                            },
+                                            "timeoutMillis": {
+                                                "description": "The amount of time to wait when receiving a response from the health check, in\n         milliseconds.",
+                                                "maximum": 60000,
+                                                "minimum": 2000,
+                                                "type": "integer"
+                                            },
+                                            "unhealthyThreshold": {
+                                                "description": "The number of consecutive failed health checks that must occur before declaring a\n         virtual node unhealthy. ",
+                                                "maximum": 10,
+                                                "minimum": 2,
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "required": [
+                                            "healthyThreshold",
+                                            "intervalMillis",
+                                            "protocol",
+                                            "timeoutMillis",
+                                            "unhealthyThreshold"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    "portMapping": {
+                                        "description": "The port mapping information for the listener.",
+                                        "properties": {
+                                            "port": {
+                                                "description": "The port used for the port mapping.",
+                                                "maximum": 65535,
+                                                "minimum": 1,
+                                                "type": "integer"
+                                            },
+                                            "protocol": {
+                                                "description": "The protocol used for the port mapping.",
+                                                "enum": [
+                                                    "http",
+                                                    "tcp"
+                                                ],
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "port",
+                                            "protocol"
+                                        ],
+                                        "type": "object"
+                                    }
+                                },
+                                "required": [
+                                    "portMapping"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "serviceDiscovery": {
+                            "description": "The service discovery information for the virtual node.",
+                            "properties": {
+                                "dns": {
+                                    "description": "Specifies the DNS information for the virtual node.",
+                                    "properties": {
+                                        "hostname": {
+                                            "description": "Specifies the DNS service discovery hostname for the virtual node. ",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "hostname"
+                                    ],
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "required": [
+                "spec"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

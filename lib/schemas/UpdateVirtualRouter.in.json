@@ -1,0 +1,100 @@
+{
+    "type": "object",
+    "properties": {
+        "meshName": {
+            "required": true,
+            "type": "string"
+        },
+        "virtualRouterName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "",
+            "properties": {
+                "clientToken": {
+                    "description": "Unique, case-sensitive identifier that you provide to ensure the idempotency of the\nrequest. Up to 36 letters, numbers, hyphens, and underscores are allowed.",
+                    "type": "string"
+                },
+                "spec": {
+                    "description": "The new virtual router specification to apply. This overwrites the existing data.",
+                    "properties": {
+                        "listeners": {
+                            "description": "The listeners that the virtual router is expected to receive inbound traffic from. Currently only one listener is supported per virtual router.",
+                            "items": {
+                                "description": "An object representing a virtual router listener.",
+                                "properties": {
+                                    "portMapping": {
+                                        "description": "An object representing a virtual node or virtual router listener port mapping.",
+                                        "properties": {
+                                            "port": {
+                                                "description": "The port used for the port mapping.",
+                                                "maximum": 65535,
+                                                "minimum": 1,
+                                                "type": "integer"
+                                            },
+                                            "protocol": {
+                                                "description": "The protocol used for the port mapping.",
+                                                "enum": [
+                                                    "http",
+                                                    "tcp"
+                                                ],
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "port",
+                                            "protocol"
+                                        ],
+                                        "type": "object"
+                                    }
+                                },
+                                "required": [
+                                    "portMapping"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "listeners"
+                    ],
+                    "type": "object"
+                }
+            },
+            "required": [
+                "spec"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}
